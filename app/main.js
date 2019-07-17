@@ -8,7 +8,7 @@ class App {
       weatherController: new WeatherController(),
       todoController: new TodoController()
     }
-  }
-}
+    }
+ }
 
 window['app'] = new App()  

@@ -1,33 +1,104 @@
-<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
 
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Inspire</title>
-	<link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Inspire</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<body id="bg-image">
-	<div id="weather">
-		Your Weather Template
-	</div>
 
-	<div id="quote">
-		The Quote
-	</div>
+<body id="body" class="container-fluid">
+    <div class="row">
+        <div class="col-2">
 
-	<div>
-		A Todo List
-		<div id="todo-error"></div>
-		<form onsubmit=""></form>
-		<div id="todos"></div>
-	</div>
+        </div>
+        <div id="weather" class="col-8 text-center">
+            Your Weather Template
+        </div>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
-	<script type="module" src="app/main.js"></script>
+    </div>
+    <div class="row">
+        <div class="col-2">
+
+        </div>
+        <div id="quote" class="col-8 text-center">
+        </div>
+        <div class="col-2">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col text-center" id="time">
+
+                </div>
+            </div>
+            <div class="row">
+                <div id="todo" class="col text-center">
+                    <h2>To do list!</h2>
+                    <p>
+                        To do's to do:
+                        <span id="todoCount">0</span>
+                    </p>
+                    <div id="todolist">
+
+                    </div>
+                    <form onsubmit="app.controllers.toDoController.addTodo(event)">
+                        <input type="text" name="newtodo" placeholder="New to do">
+                    </form>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col">
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <!--
+    <body id="bg-image" class="container-fluid">
+        <div class="row">
+            <div id="weather">
+                Your Weather Template
+            </div>
+        </div>
+        <div class="row">
+            <div id="quote">
+                The Quote
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                A Todo List
+                <div id="todo-error"></div>
+                <form onsubmit=""></form>
+                <div id="todos"></div>
+            </div>
+        </div>
+
+        -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    <script type="module" src="app/main.js"></script>
 </body>
 
 </html>
-<html>

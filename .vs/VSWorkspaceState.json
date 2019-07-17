@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\app",
+    "\\app\\components",
+    "\\app\\components\\quote",
+    "\\app\\components\\todo",
+    "\\app\\components\\weather",
+    "\\assets",
+    "\\assets\\css"
+  ],
+  "SelectedNode": "\\app\\components\\quote\\quote-service.js",
+  "PreviewInSolutionExplorer": false
+}
