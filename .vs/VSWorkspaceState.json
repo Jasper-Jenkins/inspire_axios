@@ -6,9 +6,10 @@
     "\\app\\components\\quote",
     "\\app\\components\\todo",
     "\\app\\components\\weather",
+    "\\app\\models",
     "\\assets",
     "\\assets\\css"
   ],
-  "SelectedNode": "\\app\\components\\quote\\quote-service.js",
+  "SelectedNode": "\\app\\components\\weather\\weather-controller.js",
   "PreviewInSolutionExplorer": false
 }

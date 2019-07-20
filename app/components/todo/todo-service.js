@@ -16,6 +16,7 @@ let _subscribers = {
 }
 
 function _setState(prop, data) {
+
 	_state[prop] = data
     _subscribers[prop].forEach(fn => fn())
 
@@ -48,13 +49,19 @@ export default class TodoService {
                 _setState("todos", todos)
 				// WHAT DO YOU DO WITH THE RESPONSE?
 			})
-			.catch(err => _setState('error', err.response.data))
+            .catch(err => _setState('error', err.response.data))
 	}
 
-	addTodo(todo) {
-		todoApi.post('', todo)
+    addTodo(todo) {
+        console.log("Did the post request get this far")
+        todoApi.post('', todo)
             .then(res => {
-                console.log(res);
+                console.log("Here is the POST request: ", res)
+             //   let newTodo = res.data.data.map(t => new Todo(t))
+             //   let newTodos = this.Todos()
+             //   newTodos.push(newTodo)
+             //   _setState("todos", newTodos)
+                //console.log(res);
 				// WHAT DO YOU DO AFTER CREATING A NEW TODO?
 			})
 			.catch(err => _setState('error', err.response.data))
@@ -64,7 +71,7 @@ export default class TodoService {
 		let todo = _state.todos.find(todo => todo._id == todoId)
 		// Be sure to change the completed property to its opposite
 		// todo.completed = !todo.completed <-- THIS FLIPS A BOOL
-
+        todo.completed = !todo.completed
 		todoApi.put(todoId, todo)
 			.then(res => {
 				//DO YOU WANT TO DO ANYTHING WITH THIS?
@@ -75,6 +82,12 @@ export default class TodoService {
 	removeTodo(todoId) {
 		// This one is on you to write.... 
 		// The http method is delete at the todoId
+        console.log("Delete has entered the service")
+        todoApi.delete(todoId)
+            .then(res => {
+
+            })
+            .catch(err => _setState('error', err.response.data))
 	}
 
 }

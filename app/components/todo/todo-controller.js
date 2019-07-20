@@ -10,7 +10,6 @@ function _drawTime() {
         document.getElementById("time").innerHTML = d.toLocaleTimeString();
     }
 }
-_drawTime()
 
 function _drawTodos() {
 
@@ -18,22 +17,24 @@ function _drawTodos() {
     console.log("trying to draw these", todos)
     let template = ""
 
-    /*for (var j = 0; j < todos.length; j++) {
+    for (var j = 0; j < todos.length; j++) {
 
         var todoItem = todos[j]
-                       
+
+       // console.log("A todo item", todoItem)
         if (todoItem.completed == false) {
             template += `
-				<div><input type="checkbox" id="${todoItem._id}" onclick="app.controllers.toDoController.toggleTodoStatus('${todoItem._id}', ${getTodos})"> ${todoItem.description}</div>
+				<div><input type="checkbox" id="${todoItem._id}" onclick="app.controllers.todoController.toggleTodoStatus('${todoItem._id}')"> ${todoItem.description}</div>
 				`
         } else {
             template += `
-				<div><input type="checkbox" id="${todoItem._id}" onclick="app.controllers.toDoController.toggleTodoStatus('${todoItem._id}', ${getTodos})" checked><span class="todoFormat"> ${todoItem.description.strike()}</span>
-				<i onclick="app.controllers.toDoController.removeTodo('${todoItem._id}')"class="fas fa-trash-alt"></i></div>
+				<div><input type="checkbox" id="${todoItem._id}" onclick="app.controllers.todoController.toggleTodoStatus('${todoItem._id}')" checked><span class="todoFormat"> ${todoItem.description.strike()}</span>
+				<i onclick="app.controllers.todoController.removeTodo('${todoItem._id}')"class="fas fa-trash-alt"></i></div>
 				`
-        } 
+        }
+       
     }
-*/
+
     document.getElementById('todolist').innerHTML = template
 
 	//WHAT IS MY PURPOSE?
@@ -48,20 +49,22 @@ function _drawError() {
 
 export default class TodoController {
 	constructor() {
-        _todoService.addSubscriber('error', _drawError)
+       // _todoService.addSubscriber('error', _drawError)
         _todoService.addSubscriber('todos', _drawTodos)
-		_todoService.getTodos()
+        _todoService.getTodos()
+        _drawTime()
 		// Don't forget to add your subscriber
 	}
 
-	addTodo(e) {
+    addTodo(e) {
+        console.log("The addToDo has begun")
 		e.preventDefault()
         var form = e.target
-        e.preventDefault() // <-- hey this time its a freebie don't forget this
+        console.log("What is this form you speak of: ", form)
         // TAKE THE INFORMATION FORM THE FORM
-        var form = e.target
+       
         var todo = {
-            description: form.newtodo.value,
+            description: form.description.value,
             completed: false,
             user: 'Jasper'
             // DONT FORGET TO BUILD YOUR TODO OBJECT
@@ -70,20 +73,24 @@ export default class TodoController {
         //PASSES THE NEW TODO TO YOUR SERVICE
         //DON'T FORGET TO REDRAW THE SCREEN WITH THE NEW TODO
         //YOU SHOULDN'T NEED TO CHANGE THIS
-      //  todoService.addTodo(todo, getTodos)
-		//^^^^^^^ EXAMPLE OF HOW TO GET YOUR TOODOS AFTER AN EDIT
+        //^^^^^^^ EXAMPLE OF HOW TO GET YOUR TOODOS AFTER AN EDIT
 
-		_todoService.addTodo(todo)
+        _todoService.addTodo(todo)
+        _drawTodos()
 	}
 
 	toggleTodoStatus(todoId) {
 		// asks the service to edit the todo status
-		_todoService.toggleTodoStatus(todoId)
+        _todoService.toggleTodoStatus(todoId)
+        _drawTodos()
 	}
 
-	removeTodo(todoId) {
+    removeTodo(todoId) {
+        console.log("Delete has entered the controller")
 		// ask the service to run the remove todo with this id
-		_todoService.removeTodo(todoId)
+        _todoService.removeTodo(todoId)
+       
+        _drawTodos()
 	}
 
 

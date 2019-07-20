@@ -55,8 +55,9 @@
                     <div id="todolist">
 
                     </div>
-                    <form onsubmit="app.controllers.toDoController.addTodo(event)">
-                        <input type="text" name="newtodo" placeholder="New to do">
+                    <form onsubmit="app.controllers.todoController.addTodo(event)">
+                        <input type="text" name="description" id="todos" placeholder="New to do">
+                        <button type="submit" class="btn btn-primary" id="addtodo"> Add </button>
                     </form>
 
                 </div>
@@ -74,29 +75,8 @@
 
 
 
-    <!--
-    <body id="bg-image" class="container-fluid">
-        <div class="row">
-            <div id="weather">
-                Your Weather Template
-            </div>
-        </div>
-        <div class="row">
-            <div id="quote">
-                The Quote
-            </div>
-        </div>
-        <div class="row">
-            <div>
-                A Todo List
-                <div id="todo-error"></div>
-                <form onsubmit=""></form>
-                <div id="todos"></div>
-            </div>
-        </div>
-
-        -->
-
+   
+   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
     <script type="module" src="app/main.js"></script>
 </body>
