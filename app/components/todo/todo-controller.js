@@ -3,7 +3,8 @@ import TodoService from "./todo-service.js";
 const _todoService = new TodoService()
 
 function _drawTime() {
-    var myVar = setInterval(myTimer, 1000);
+   // var myVar =
+    setInterval(myTimer, 1000);
 
     function myTimer() {
         var d = new Date();
@@ -13,7 +14,6 @@ function _drawTime() {
 
 function _drawTodos() {
     let todos = _todoService.Todos
-    //console.log("trying to draw these", todos)
     let template = ""
     for (var j = 0; j < todos.length; j++) {
         var todoItem = todos[j]
@@ -51,7 +51,6 @@ export default class TodoController {
         console.log("The addToDo has begun")
         e.preventDefault()
         var form = e.target
-        //  console.log("What is this form you speak of: ", form)
         // TAKE THE INFORMATION FORM THE FORM
         var todo = {
             description: form.description.value,
@@ -66,20 +65,17 @@ export default class TodoController {
         //^^^^^^^ EXAMPLE OF HOW TO GET YOUR TOODOS AFTER AN EDIT
 
         _todoService.addTodo(todo)
-      //  _drawTodos()
     }
 
 	toggleTodoStatus(todoId) {
 		// asks the service to edit the todo status
         _todoService.toggleTodoStatus(todoId)
-     //   _drawTodos()
-	}
+    }
 
     removeTodo(todoId) {
 		// ask the service to run the remove todo with this id
         _todoService.removeTodo(todoId)
-      //  _drawTodos()
-	}
+    }
 
 
 

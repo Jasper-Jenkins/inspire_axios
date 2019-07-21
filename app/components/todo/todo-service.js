@@ -27,11 +27,8 @@ function deleteElemFromArray(arr, objId) {
     return arr
 }
 function _setState(prop, data) {
-
-	_state[prop] = data
+   	_state[prop] = data
     _subscribers[prop].forEach(fn => fn())
-
-    console.log("Current State", _state)
 }
 
 export default class TodoService {
@@ -90,7 +87,7 @@ export default class TodoService {
 		// The http method is delete at the todoId  
         todoApi.delete(todoId)
             .then(res => {
-                console.log("Response from delete: ", res)
+              //  console.log("Response from delete: ", res)
                 _setState("todos", deleteElemFromArray(this.Todos, todoId))
                 //created delete function so that I didnt need to do another get request.
             })
