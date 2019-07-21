@@ -13,7 +13,7 @@ function _drawTime() {
 
 function _drawTodos() {
     let todos = _todoService.Todos
-    console.log("trying to draw these", todos)
+    //console.log("trying to draw these", todos)
     let template = ""
     for (var j = 0; j < todos.length; j++) {
         var todoItem = todos[j]
@@ -66,21 +66,19 @@ export default class TodoController {
         //^^^^^^^ EXAMPLE OF HOW TO GET YOUR TOODOS AFTER AN EDIT
 
         _todoService.addTodo(todo)
-        _drawTodos()
+      //  _drawTodos()
     }
 
 	toggleTodoStatus(todoId) {
 		// asks the service to edit the todo status
         _todoService.toggleTodoStatus(todoId)
-        _drawTodos()
+     //   _drawTodos()
 	}
 
     removeTodo(todoId) {
-        console.log("Delete has entered the controller")
-        console.log("These are the todos so far: ", _todoService.Todos)
 		// ask the service to run the remove todo with this id
         _todoService.removeTodo(todoId)
-        _drawTodos()
+      //  _drawTodos()
 	}
 
 

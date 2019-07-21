@@ -41,7 +41,6 @@ export default class TodoService {
     }
 
     get Todos() {
-        console.log("GET TODOS from class state", _state.todos)
         return _state.todos
     }
     
@@ -50,10 +49,9 @@ export default class TodoService {
 	}
 
 	getTodos() {
-		console.log("Getting the Todo List")
 		todoApi.get()
             .then(res => {
-                console.log("Here is the GET request for todos", res.data.data)
+                console.log("Here is the response from the GET request: ", res.data.data)
                 let todos = res.data.data.map(t => new Todo(t))
                 _setState("todos", todos)
 				// WHAT DO YOU DO WITH THE RESPONSE?
@@ -80,7 +78,8 @@ export default class TodoService {
 		// todo.completed = !todo.completed <-- THIS FLIPS A BOOL
         todo.completed = !todo.completed
 		todoApi.put(todoId, todo)
-			.then(res => {
+            .then(res => {
+                _setState("todos", this.Todos)
 				//DO YOU WANT TO DO ANYTHING WITH THIS?
 			})
 			.catch(err => _setState('error', err.response.data))
@@ -88,13 +87,12 @@ export default class TodoService {
 
 	removeTodo(todoId) {
 		// This one is on you to write.... 
-		// The http method is delete at the todoId
-        _setState("todos", deleteElemFromArray(this.Todos, todoId))
+		// The http method is delete at the todoId  
         todoApi.delete(todoId)
             .then(res => {
                 console.log("Response from delete: ", res)
-            //    _setState(
-         //       _state.todos = deleteElemFromArray(todos, objId)
+                _setState("todos", deleteElemFromArray(this.Todos, todoId))
+                //created delete function so that I didnt need to do another get request.
             })
             .catch(err => _setState('error', err.response.data))
 	}
