@@ -65,12 +65,10 @@ export default class TodoService {
         console.log("Post request starting in the service")
         todoApi.post('', todo)
             .then(res => {
-              //  console.log("Here is the POST request response: ", res.data.data)
-               // let newTodo = res.data.data.map(t => new newTodo(t))
-            //    let newTodos = this.Todos()
-           //     newTodos.push(newTodo)
-              // _setState("todos", newTodos)
-              //  console.log("Response being mapped: ", newTodo);
+                let newTodo = new Todo(res.data.data)
+                let newTodos = this.Todos
+                newTodos.push(newTodo)
+               _setState("todos", newTodos);
                 //   WHAT DO YOU DO AFTER CREATING A NEW TODO?
             })
 			.catch(err => _setState('error', err.response.data))
@@ -95,6 +93,7 @@ export default class TodoService {
         todoApi.delete(todoId)
             .then(res => {
                 console.log("Response from delete: ", res)
+            //    _setState(
          //       _state.todos = deleteElemFromArray(todos, objId)
             })
             .catch(err => _setState('error', err.response.data))
