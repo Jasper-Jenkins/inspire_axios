@@ -12,16 +12,11 @@ function _drawTime() {
 }
 
 function _drawTodos() {
-
     let todos = _todoService.Todos
     console.log("trying to draw these", todos)
     let template = ""
-
     for (var j = 0; j < todos.length; j++) {
-
         var todoItem = todos[j]
-
-       // console.log("A todo item", todoItem)
         if (todoItem.completed == false) {
             template += `
 				<div><input type="checkbox" id="${todoItem._id}" onclick="app.controllers.todoController.toggleTodoStatus('${todoItem._id}')"> ${todoItem.description}</div>
@@ -32,14 +27,10 @@ function _drawTodos() {
 				<i onclick="app.controllers.todoController.removeTodo('${todoItem._id}')"class="fas fa-trash-alt"></i></div>
 				`
         }
-       
     }
-
     document.getElementById('todolist').innerHTML = template
-
 	//WHAT IS MY PURPOSE?
 }
-//_drawTodos()
 
 function _drawError() {
 	console.error('[TODO ERROR]', _todoService.TodoError)
@@ -58,11 +49,10 @@ export default class TodoController {
 
     addTodo(e) {
         console.log("The addToDo has begun")
-		e.preventDefault()
+        e.preventDefault()
         var form = e.target
-        console.log("What is this form you speak of: ", form)
+        //  console.log("What is this form you speak of: ", form)
         // TAKE THE INFORMATION FORM THE FORM
-       
         var todo = {
             description: form.description.value,
             completed: false,
@@ -77,7 +67,7 @@ export default class TodoController {
 
         _todoService.addTodo(todo)
         _drawTodos()
-	}
+    }
 
 	toggleTodoStatus(todoId) {
 		// asks the service to edit the todo status
@@ -87,9 +77,9 @@ export default class TodoController {
 
     removeTodo(todoId) {
         console.log("Delete has entered the controller")
+        console.log("These are the todos so far: ", _todoService.Todos)
 		// ask the service to run the remove todo with this id
         _todoService.removeTodo(todoId)
-       
         _drawTodos()
 	}
 

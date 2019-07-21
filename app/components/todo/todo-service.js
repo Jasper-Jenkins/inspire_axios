@@ -15,6 +15,17 @@ let _subscribers = {
 	error: []
 }
 
+function deleteElemFromArray(arr, objId) {
+    var i = arr.length
+    for (var j = 0; j < i; j++) {
+        let objectId = arr[j]._id
+        if (objectId == objId) { 
+            arr.splice(j, 1)
+            break;
+        }    
+    }
+    return arr
+}
 function _setState(prop, data) {
 
 	_state[prop] = data
@@ -25,7 +36,6 @@ function _setState(prop, data) {
 
 export default class TodoService {
     
-
 	get TodoError() {
 		return _state.error
     }
@@ -34,8 +44,7 @@ export default class TodoService {
         console.log("GET TODOS from class state", _state.todos)
         return _state.todos
     }
-
-
+    
 	addSubscriber(prop, fn) {
 		_subscribers[prop].push(fn)
 	}
@@ -44,7 +53,7 @@ export default class TodoService {
 		console.log("Getting the Todo List")
 		todoApi.get()
             .then(res => {
-                console.log("Here is the GET request for todos", res)
+                console.log("Here is the GET request for todos", res.data.data)
                 let todos = res.data.data.map(t => new Todo(t))
                 _setState("todos", todos)
 				// WHAT DO YOU DO WITH THE RESPONSE?
@@ -53,17 +62,17 @@ export default class TodoService {
 	}
 
     addTodo(todo) {
-        console.log("Did the post request get this far")
+        console.log("Post request starting in the service")
         todoApi.post('', todo)
             .then(res => {
-                console.log("Here is the POST request: ", res)
-             //   let newTodo = res.data.data.map(t => new Todo(t))
-             //   let newTodos = this.Todos()
-             //   newTodos.push(newTodo)
-             //   _setState("todos", newTodos)
-                //console.log(res);
-				// WHAT DO YOU DO AFTER CREATING A NEW TODO?
-			})
+              //  console.log("Here is the POST request response: ", res.data.data)
+               // let newTodo = res.data.data.map(t => new newTodo(t))
+            //    let newTodos = this.Todos()
+           //     newTodos.push(newTodo)
+              // _setState("todos", newTodos)
+              //  console.log("Response being mapped: ", newTodo);
+                //   WHAT DO YOU DO AFTER CREATING A NEW TODO?
+            })
 			.catch(err => _setState('error', err.response.data))
 	}
 
@@ -82,10 +91,11 @@ export default class TodoService {
 	removeTodo(todoId) {
 		// This one is on you to write.... 
 		// The http method is delete at the todoId
-        console.log("Delete has entered the service")
+        _setState("todos", deleteElemFromArray(this.Todos, todoId))
         todoApi.delete(todoId)
             .then(res => {
-
+                console.log("Response from delete: ", res)
+         //       _state.todos = deleteElemFromArray(todos, objId)
             })
             .catch(err => _setState('error', err.response.data))
 	}
