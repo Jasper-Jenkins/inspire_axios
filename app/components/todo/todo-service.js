@@ -48,7 +48,6 @@ export default class TodoService {
 	getTodos() {
 		todoApi.get()
             .then(res => {
-                console.log("Here is the response from the GET request: ", res.data.data)
                 let todos = res.data.data.map(t => new Todo(t))
                 _setState("todos", todos)
 				// WHAT DO YOU DO WITH THE RESPONSE?
@@ -57,7 +56,6 @@ export default class TodoService {
 	}
 
     addTodo(todo) {
-        console.log("Post request starting in the service")
         todoApi.post('', todo)
             .then(res => {
                 let newTodo = new Todo(res.data.data)
@@ -76,8 +74,13 @@ export default class TodoService {
         todo.completed = !todo.completed
 		todoApi.put(todoId, todo)
             .then(res => {
-                _setState("todos", this.Todos)
-				//DO YOU WANT TO DO ANYTHING WITH THIS?
+                if (res.status == 200) {
+                    console.log("response was good")
+                    _setState("todos", this.Todos)
+                } else {
+                    console.log("response was not good")
+                }
+          		//DO YOU WANT TO DO ANYTHING WITH THIS?
 			})
 			.catch(err => _setState('error', err.response.data))
 	}

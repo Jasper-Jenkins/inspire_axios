@@ -3,6 +3,7 @@
     "",
     "\\app",
     "\\app\\components",
+    "\\app\\components\\image",
     "\\app\\components\\quote",
     "\\app\\components\\todo",
     "\\app\\components\\weather",
@@ -10,6 +11,6 @@
     "\\assets",
     "\\assets\\css"
   ],
-  "SelectedNode": "\\app\\components\\weather\\weather-controller.js",
+  "SelectedNode": "\\app\\components\\image\\image-service.js",
   "PreviewInSolutionExplorer": false
 }

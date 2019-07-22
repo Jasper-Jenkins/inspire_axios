@@ -48,7 +48,6 @@ export default class TodoController {
 	}
 
     addTodo(e) {
-        console.log("The addToDo has begun")
         e.preventDefault()
         var form = e.target
         // TAKE THE INFORMATION FORM THE FORM
@@ -58,7 +57,7 @@ export default class TodoController {
             user: 'Jasper'
             // DONT FORGET TO BUILD YOUR TODO OBJECT
         }
-
+        form.reset()
         //PASSES THE NEW TODO TO YOUR SERVICE
         //DON'T FORGET TO REDRAW THE SCREEN WITH THE NEW TODO
         //YOU SHOULDN'T NEED TO CHANGE THIS
