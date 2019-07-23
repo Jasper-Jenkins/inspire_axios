@@ -1,7 +1,6 @@
 ﻿<!doctype html>
 <html lang="en">
 
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,22 +19,22 @@
         <div class="col-2">
 
         </div>
-        <div id="weather" class="col-8 text-center">
-            
-            
-            Your Weather Template
-        </div>
-
-    </div>
-    <div class="row">
-        <div class="col-2">
-
-        </div>
-        <div class="col-8">
-            <form onsubmit="app.controllers.weatherController.chooseCity(event)">
-                <input type="text" name="city" id="city" placeholder="Choose your city">
-                <button type="submit" class="btn btn-primary" id="chooseCity"> Add </button>
-            </form>
+        <div id="weatherInfo" class="col-8">
+            <div class="row">
+                <div id="weather" class="col text-center">
+                    <p>
+                        Your Weather Template
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <form onsubmit="app.controllers.weatherController.chooseCity(event)">
+                        <input type="text" name="city" id="city" placeholder="Choose your city">
+                        <button type="submit" class="btn btn-primary" id="chooseCity"> Choose </button>
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="col-2">
 
@@ -46,6 +45,7 @@
 
         </div>
         <div id="quote" class="col-8 text-center">
+
         </div>
         <div class="col-2">
 
@@ -55,7 +55,7 @@
         <div class="col">
 
         </div>
-        <div class="col">
+        <div class="col-8">
             <div class="row">
                 <div class="col text-center" id="time">
 
@@ -75,26 +75,14 @@
                         <input type="text" name="description" id="todos" placeholder="New to do">
                         <button type="submit" class="btn btn-primary" id="addtodo"> Add </button>
                     </form>
-
                 </div>
             </div>
-
-
         </div>
         <div class="col">
 
         </div>
-
-    </div>
-
-
-
-
-
-   
-   
+    </div>   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
     <script type="module" src="app/main.js"></script>
 </body>
-
 </html>

@@ -15,6 +15,7 @@ function _drawTime() {
 function _drawTodos() {
     let todos = _todoService.Todos
     let template = ""
+    document.getElementById('todoCount').innerText = todos.length
     for (var j = 0; j < todos.length; j++) {
         var todoItem = todos[j]
         if (todoItem.completed == false) {
@@ -29,7 +30,6 @@ function _drawTodos() {
         }
     }
     document.getElementById('todolist').innerHTML = template
-	//WHAT IS MY PURPOSE?
 }
 
 function _drawError() {
