@@ -7,8 +7,12 @@ function drawWeather() {
     let weather = _weatherService.Weather;
 
     var template = '';
+    /* <button onclick="app.controllers.weatherController.chooseCity('boise')">Boise</button>
+        <button onclick="app.controllers.weatherController.chooseCity('meridian')">Meridian</button>*/
+
 
     template += `
+       
 		<p> location: <span>${weather.city}</span></p>
 		<p> temp: <span>K ${weather.kelvin}</span></p>
         <p> temp: <span>F ${weather.fahrenheit.toFixed(2)}</span></p>
@@ -18,12 +22,26 @@ function drawWeather() {
     document.getElementById('weather').innerHTML = template;
 }
 
-
  export default class WeatherController {
 
 	constructor() {
-		_weatherService.addSubscriber('weather', drawWeather)
-		_weatherService.getWeather()
-	}
+        _weatherService.addSubscriber('weather', drawWeather)
+        _weatherService.getWeather()
+     }
+
+    /* chooseCity(cityName) {
+         _weatherService.getWeatherCityOfChoice(cityName)
+     } */
+
+     chooseCity(e) {
+         e.preventDefault()
+         var form = e.target
+         var cityName = {
+             city: form.city.value 
+         }
+         form.reset()
+         console.log("City name value from form input: ", cityName)
+         _weatherService.getWeatherCityOfChoice(cityName)
+     }
 
 }

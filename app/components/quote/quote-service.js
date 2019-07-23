@@ -30,7 +30,7 @@ export default class QuoteService {
     }
 
     getQuote() {
-        console.log('Calling the Weatherman')
+        console.log('Your Quote is coming')
         _quoteApi.get().then(res => {
             _setState('quote', new Quote(res.data))
         })
