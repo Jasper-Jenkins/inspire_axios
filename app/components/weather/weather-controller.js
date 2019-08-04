@@ -7,16 +7,13 @@ function drawWeather() {
     let weather = _weatherService.Weather;
 
     var template = '';
-    /* <button onclick="app.controllers.weatherController.chooseCity('boise')">Boise</button>
-        <button onclick="app.controllers.weatherController.chooseCity('meridian')">Meridian</button>*/
-
 
     template += `
-       
-		<p> location: <span>${weather.city}</span></p>
-		<p> temp: <span>K ${weather.kelvin}</span></p>
-        <p> temp: <span>F ${weather.fahrenheit.toFixed(2)}</span></p>
-        <p> temp: <span>C ${weather.celsius}</span></p>
+        <p> location: <span>${weather.city}</span></p>
+        <p> temp: </p>
+        <p> &#176K ${weather.kelvin}</p> 
+        <p> &#176F ${weather.fahrenheit.toFixed(2)}</p>
+        <p> &#176C ${weather.celsius}</p>
         <p> Sky: <span>${weather.weather}</span><img src="https://openweathermap.org/img/w/${weather.icon}.png"></p>
     		`
     document.getElementById('weather').innerHTML = template;
@@ -28,10 +25,6 @@ function drawWeather() {
         _weatherService.addSubscriber('weather', drawWeather)
         _weatherService.getWeather()
      }
-
-    /* chooseCity(cityName) {
-         _weatherService.getWeatherCityOfChoice(cityName)
-     } */
 
      chooseCity(e) {
          e.preventDefault()

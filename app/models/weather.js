@@ -1,7 +1,6 @@
 export default class Weather {
     constructor(data) {
         console.log('[RAW WEATHER API DATA]', data);
-
         // HEY FUN FACT 
         // Have you ever wanted to know the temperature measured in kelvin? That is what this data returns!
         // data.main.temp is the temperature in Kelvin
@@ -12,6 +11,5 @@ export default class Weather {
         this.celsius = (data.main.temp - 273.15).toFixed(2)
         this.icon = data.weather[0].icon
         this.weather = data.weather[0].description
-
     }
 }

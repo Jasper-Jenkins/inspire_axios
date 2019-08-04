@@ -1,4 +1,5 @@
 import TodoService from "./todo-service.js";
+import Todo from "../../models/todo.js";
 
 const _todoService = new TodoService()
 
@@ -8,13 +9,18 @@ function _drawTime() {
 
     function myTimer() {
         var d = new Date();
-        document.getElementById("time").innerHTML = d.toLocaleTimeString();
+        let template = ""
+        template += `<span class="align-middle">${d.toLocaleTimeString()}</span>`
+        document.getElementById("time").innerHTML = template
+
     }
 }
+
 
 function _drawTodos() {
     let todos = _todoService.Todos
     let template = ""
+    _slangInfo(todos[1].description)
     document.getElementById('todoCount').innerText = todos.length
     for (var j = 0; j < todos.length; j++) {
         var todoItem = todos[j]
@@ -32,16 +38,71 @@ function _drawTodos() {
     document.getElementById('todolist').innerHTML = template
 }
 
+function _drawTodosWithAcronyms() {
+    var todos = _todoService.Todos
+    var template = ""
+    
+    document.getElementById('todoCount').innerText = todos.length
+    for (var j = 0; j < todos.length; j++) {
+        var todoStr = "" 
+        var todoItem = todos[j]
+        var todoDescriptionArr = todoItem.description.split(" ")
+        for (var k = 0; k < todoDescriptionArr.length; k++) {
+            var toolTipStr = ""
+            var tooltip = false
+            switch (todoDescriptionArr[k].toLowerCase()) {
+                case "lol":
+                    toolTipStr = `<div class="acronym">${todoDescriptionArr[k]}<span class="acronymText"> laugh out loud</span></div>`;
+                    tooltip = true;
+                    break;
+                case "ttyl":
+                    toolTipStr = `<div class="acronym">${todoDescriptionArr[k]}<span class="acronymText"> talk to you later</span></div>`;
+                    tooltip = true;
+                    break;
+                case "idgaf":
+                    toolTipStr = `<div class="acronym">${todoDescriptionArr[k]}<span class="acronymText"> I dont give a f*ck</span></div>`;
+                    tooltip = true;
+                    break;
+                default:
+                    toolTipStr = todoDescriptionArr[k]                     
+                    break;
+            }
+            if (k != todoDescriptionArr.length - 1 && tooltip) {
+                todoStr += toolTipStr + ` `
+            } else if (k != todoDescriptionArr.length - 1 && !tooltip) {
+                todoStr += toolTipStr + ` `
+            } else {
+                todoStr += toolTipStr
+            }
+
+        }
+    
+        if (todoItem.completed == false) {
+            template += `
+				<div><input type="checkbox" id="${todoItem._id}" onclick="app.controllers.todoController.toggleTodoStatus('${todoItem._id}')">${todoStr}</div>
+				`
+        } else {
+            template += `
+				<div><input type="checkbox" id="${todoItem._id}" onclick="app.controllers.todoController.toggleTodoStatus('${todoItem._id}')" checked><span class="todoFormat">${todoStr.strike()}</span>
+				<i onclick="app.controllers.todoController.removeTodo('${todoItem._id}')"class="fas fa-trash-alt"></i></div>
+				`
+        }
+    }
+    document.getElementById('todolist').innerHTML = template
+}
+
+
 function _drawError() {
 	console.error('[TODO ERROR]', _todoService.TodoError)
 	//document.querySelector('#todo-error').textContent = `${_todoService.TodoError.message}`
+
 }
 
 
 export default class TodoController {
 	constructor() {
        // _todoService.addSubscriber('error', _drawError)
-        _todoService.addSubscriber('todos', _drawTodos)
+        _todoService.addSubscriber('todos', _drawTodosWithAcronyms)
         _todoService.getTodos()
         _drawTime()
 		// Don't forget to add your subscriber
