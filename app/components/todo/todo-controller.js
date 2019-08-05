@@ -3,6 +3,15 @@ import Todo from "../../models/todo.js";
 
 const _todoService = new TodoService()
 
+var acronyms = {
+    lol: ["laugh out loud"],
+    ttyl: ["Talk to you later"],
+    idgaf: ["I dont give a fuck"],
+    yolo: ["You only live once"],
+    hmu: ["Hit me up"]
+}
+
+
 function _drawTime() {
    // var myVar =
     setInterval(myTimer, 1000);
@@ -15,7 +24,6 @@ function _drawTime() {
 
     }
 }
-
 
 function _drawTodos() {
     let todos = _todoService.Todos
@@ -39,6 +47,7 @@ function _drawTodos() {
 }
 
 function _drawTodosWithAcronyms() {
+    console.log("Acronyms object", acronyms.lol[0])
     var todos = _todoService.Todos
     var template = ""
     
@@ -91,6 +100,44 @@ function _drawTodosWithAcronyms() {
     document.getElementById('todolist').innerHTML = template
 }
 
+function _drawTodosWithAcronymsTwo() {
+    var todos = _todoService.Todos // retrieving the todos 
+    var template = "" // for the final result to be inserted into the html
+ 
+    document.getElementById('todoCount').innerText = todos.length //simple counter for how many todos there are
+    
+    for (var j = 0; j < todos.length; j++) { // iterating through the todos 
+        var todoStr = "" // for reconstructing the todo description with div and span elements 
+        var todoItem = todos[j]  // single todo
+        console.log("it gets this far")
+        var todoDescriptionArr = todoItem.description.split(" ") //splitting the todo's description into an array of strings
+        for (let k = 0; k < todoDescriptionArr.length; k++) { // iterating over the array of strings
+            console.log("it gets this far too")
+            var key = todoDescriptionArr[k].toLowerCase()
+            if (acronyms.hasOwnProperty(key)) {
+                todoStr += `<div class="acronym">${todoDescriptionArr[k]}<span class="acronymText"> ${acronyms[key][0]}</span></div>`;
+            } else {
+                todoStr += todoDescriptionArr[k]
+            }
+            if (k != todoDescriptionArr.length - 1) {
+                todoStr += ` `
+            } 
+        }
+
+        if (todoItem.completed == false) {
+            template += `
+				<div><input type="checkbox" id="${todoItem._id}" onclick="app.controllers.todoController.toggleTodoStatus('${todoItem._id}')">${todoStr}</div>
+				`
+        } else {
+            template += `
+				<div><input type="checkbox" id="${todoItem._id}" onclick="app.controllers.todoController.toggleTodoStatus('${todoItem._id}')" checked><span class="todoFormat">${todoStr.strike()}</span>
+				<i onclick="app.controllers.todoController.removeTodo('${todoItem._id}')"class="fas fa-trash-alt"></i></div>
+				`
+        }
+    }
+    document.getElementById('todolist').innerHTML = template
+}
+
 
 function _drawError() {
 	console.error('[TODO ERROR]', _todoService.TodoError)
@@ -102,7 +149,7 @@ function _drawError() {
 export default class TodoController {
 	constructor() {
        // _todoService.addSubscriber('error', _drawError)
-        _todoService.addSubscriber('todos', _drawTodosWithAcronyms)
+        _todoService.addSubscriber('todos', _drawTodosWithAcronymsTwo)
         _todoService.getTodos()
         _drawTime()
 		// Don't forget to add your subscriber
