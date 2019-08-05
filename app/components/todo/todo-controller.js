@@ -107,12 +107,12 @@ function _drawTodosWithAcronymsTwo() {
     document.getElementById('todoCount').innerText = todos.length //simple counter for how many todos there are
     
     for (var j = 0; j < todos.length; j++) { // iterating through the todos 
+
         var todoStr = "" // for reconstructing the todo description with div and span elements 
         var todoItem = todos[j]  // single todo
-        console.log("it gets this far")
         var todoDescriptionArr = todoItem.description.split(" ") //splitting the todo's description into an array of strings
+
         for (let k = 0; k < todoDescriptionArr.length; k++) { // iterating over the array of strings
-            console.log("it gets this far too")
             var key = todoDescriptionArr[k].toLowerCase()
             if (acronyms.hasOwnProperty(key)) {
                 todoStr += `<div class="acronym">${todoDescriptionArr[k]}<span class="acronymText"> ${acronyms[key][0]}</span></div>`;
