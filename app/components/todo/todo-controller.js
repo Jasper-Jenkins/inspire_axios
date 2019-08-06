@@ -25,82 +25,7 @@ function _drawTime() {
     }
 }
 
-function _drawTodos() {
-    let todos = _todoService.Todos
-    let template = ""
-    _slangInfo(todos[1].description)
-    document.getElementById('todoCount').innerText = todos.length
-    for (var j = 0; j < todos.length; j++) {
-        var todoItem = todos[j]
-        if (todoItem.completed == false) {
-            template += `
-				<div><input type="checkbox" id="${todoItem._id}" onclick="app.controllers.todoController.toggleTodoStatus('${todoItem._id}')"> ${todoItem.description}</div>
-				`
-        } else {
-            template += `
-				<div><input type="checkbox" id="${todoItem._id}" onclick="app.controllers.todoController.toggleTodoStatus('${todoItem._id}')" checked><span class="todoFormat"> ${todoItem.description.strike()}</span>
-				<i onclick="app.controllers.todoController.removeTodo('${todoItem._id}')"class="fas fa-trash-alt"></i></div>
-				`
-        }
-    }
-    document.getElementById('todolist').innerHTML = template
-}
-
 function _drawTodosWithAcronyms() {
-    console.log("Acronyms object", acronyms.lol[0])
-    var todos = _todoService.Todos
-    var template = ""
-    
-    document.getElementById('todoCount').innerText = todos.length
-    for (var j = 0; j < todos.length; j++) {
-        var todoStr = "" 
-        var todoItem = todos[j]
-        var todoDescriptionArr = todoItem.description.split(" ")
-        for (var k = 0; k < todoDescriptionArr.length; k++) {
-            var toolTipStr = ""
-            var tooltip = false
-            switch (todoDescriptionArr[k].toLowerCase()) {
-                case "lol":
-                    toolTipStr = `<div class="acronym">${todoDescriptionArr[k]}<span class="acronymText"> laugh out loud</span></div>`;
-                    tooltip = true;
-                    break;
-                case "ttyl":
-                    toolTipStr = `<div class="acronym">${todoDescriptionArr[k]}<span class="acronymText"> talk to you later</span></div>`;
-                    tooltip = true;
-                    break;
-                case "idgaf":
-                    toolTipStr = `<div class="acronym">${todoDescriptionArr[k]}<span class="acronymText"> I dont give a f*ck</span></div>`;
-                    tooltip = true;
-                    break;
-                default:
-                    toolTipStr = todoDescriptionArr[k]                     
-                    break;
-            }
-            if (k != todoDescriptionArr.length - 1 && tooltip) {
-                todoStr += toolTipStr + ` `
-            } else if (k != todoDescriptionArr.length - 1 && !tooltip) {
-                todoStr += toolTipStr + ` `
-            } else {
-                todoStr += toolTipStr
-            }
-
-        }
-    
-        if (todoItem.completed == false) {
-            template += `
-				<div><input type="checkbox" id="${todoItem._id}" onclick="app.controllers.todoController.toggleTodoStatus('${todoItem._id}')">${todoStr}</div>
-				`
-        } else {
-            template += `
-				<div><input type="checkbox" id="${todoItem._id}" onclick="app.controllers.todoController.toggleTodoStatus('${todoItem._id}')" checked><span class="todoFormat">${todoStr.strike()}</span>
-				<i onclick="app.controllers.todoController.removeTodo('${todoItem._id}')"class="fas fa-trash-alt"></i></div>
-				`
-        }
-    }
-    document.getElementById('todolist').innerHTML = template
-}
-
-function _drawTodosWithAcronymsTwo() {
     var todos = _todoService.Todos // retrieving the todos 
     var template = "" // for the final result to be inserted into the html
  
@@ -113,13 +38,16 @@ function _drawTodosWithAcronymsTwo() {
         var todoDescriptionArr = todoItem.description.split(" ") //splitting the todo's description into an array of strings
 
         for (let k = 0; k < todoDescriptionArr.length; k++) { // iterating over the array of strings
-            var key = todoDescriptionArr[k].toLowerCase()
-            if (acronyms.hasOwnProperty(key)) {
+            var key = todoDescriptionArr[k].toLowerCase() // changing each string to lowercase to compare against keys in acronym object
+            if (acronyms.hasOwnProperty(key)) { // searching for a string that equals a key in the acronym object
+                /* When string matches a key in the object create div & span for :hover use in css and add it to the todoStr*/
                 todoStr += `<div class="acronym">${todoDescriptionArr[k]}<span class="acronymText"> ${acronyms[key][0]}</span></div>`;
             } else {
+                /* adding the string that doesnt match a key back into the reconstructed todoStr string */ 
                 todoStr += todoDescriptionArr[k]
             }
             if (k != todoDescriptionArr.length - 1) {
+                /* adding a space if not currently on the last element in the array of strings */
                 todoStr += ` `
             } 
         }
@@ -149,7 +77,7 @@ function _drawError() {
 export default class TodoController {
 	constructor() {
        // _todoService.addSubscriber('error', _drawError)
-        _todoService.addSubscriber('todos', _drawTodosWithAcronymsTwo)
+        _todoService.addSubscriber('todos', _drawTodosWithAcronyms)
         _todoService.getTodos()
         _drawTime()
 		// Don't forget to add your subscriber
